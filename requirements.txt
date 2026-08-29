@@ -1,4 +1,5 @@
 numpy
+os
 pandas 
 matplotlib
 seaborn
@@ -7,3 +8,4 @@ keras-tuner
 tensorboard
 scikit-learn
 imblearn
+pydantic
