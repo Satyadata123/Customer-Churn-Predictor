@@ -17,7 +17,7 @@ import keras_tuner as kt
 
 
 class model_path_config:
-    model_path = os.path.join("artifacts", "model.pkl")
+    model_path = os.path.join("artifacts", "ann_model.pkl")
 
 
 class model_trainer:
@@ -29,67 +29,18 @@ class model_trainer:
             logging.info("model building start.")
             model =  Sequential()
 
-            model.add(Dense(16, activation="elu", input_dim = x_train_transform.shape[1]))
+            model.add(Dense(16, activation="elu", input_dim = 11))
             model.add(Dense(80, activation="relu"))
             model.add(Dense(112, activation="elu"))
             model.add(Dense(1, activation= 'sigmoid'))
             model.compile(optimizer= 'adam',loss= 'binary_crossentropy', metrics=['accuracy'])
 
 
-            # def model_builder(hp):
-            #     model = keras.Sequential()
-            #     count = 0
-
-            #     for i in range(hp.Int('num_layers', min_value = 1, max_value = 10)):
-            #         if count == 0:
-            #             unite = hp.Int('num_node' + str(i), min_value= 8, max_value = 128, step = 8)
-            #             activation_fun = hp.Choice('activation_' + str(i), values = ['relu', 'tanh', 'selu', 'elu'])
-            #             model.add(
-            #             Dense(units=unite,
-            #                 activation= activation_fun, 
-            #                 input_dim = x_train_transform.shape[1]
-            #                 )
-            #             )
-
-            #         else:
-            #             unite = hp.Int('num_node' + str(i), min_value= 8, max_value = 128, step = 8)
-            #             activation_fun = hp.Choice('activation_' + str(i), values = ['relu', 'tanh', 'selu', 'elu'])
-            #             model.add(
-            #             Dense(units=unite,
-            #                 activation= activation_fun
-            #                 )
-            #             )
-
-            #         count+= 1
-      
-
-            #     model.add(Dense(1, activation= 'sigmoid'))
-            #     model.compile(optimizer= hp.Choice('optimizer', values = ['adam', 'rmsprop', 'sgd', 'nadam', 'adadelta']),
-            #     loss= 'binary_crossentropy',
-            #     metrics=['accuracy'])
-
-            #     return model
-
-
-            # tuner = kt.RandomSearch(model_builder,
-            #          objective='val_accuracy',
-            #          max_trials=5,
-                   
-            #          directory='my_dir',
-            #          project_name='intro_to_kt')
-
-            # tuner.search(x_train_transform, y_train, epochs=5, validation_data = (x_test_transform, y_test))
-
-            # model =tuner.get_best_models(num_models=1)[0]
-            # stop_early = tensorflow.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
-            # model.fit(x_train_transform, y_train, epochs = 200, initial_epoch = 6, validation_data = (x_test_transform, y_test), callbacks = stop_early)
-
-
 
             logging.info("model building completed now model training started")
             stop_early = tensorflow.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
-            model.fit(x_train_transform, y_train, epochs = 500, callbacks = stop_early)
+            model.fit(x_train_transform, y_train, epochs = 500, validation_data = (x_test_transform, y_test))
 
             logging.info("model training complited and now testing started")
             yprob = model.predict(x_test_transform)
