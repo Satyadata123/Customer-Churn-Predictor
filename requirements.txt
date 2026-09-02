@@ -1,5 +1,4 @@
 numpy
-os
 pandas 
 matplotlib
 seaborn
@@ -9,3 +8,5 @@ tensorboard
 scikit-learn
 imblearn
 pydantic
+fastapi
+streamlit
