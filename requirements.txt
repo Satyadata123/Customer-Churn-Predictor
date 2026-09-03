@@ -2,11 +2,15 @@ numpy
 pandas 
 matplotlib
 seaborn
-tensorflow
+tensorflow==2.21.0
+keras==3.15.1
 keras-tuner
 tensorboard
-scikit-learn
+scikit-learn==1.5.1
 imblearn
 pydantic
 fastapi
 streamlit
+
+
+
