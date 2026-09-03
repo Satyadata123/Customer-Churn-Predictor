@@ -78,8 +78,8 @@ class Data_transformation:
             
 
             
-            x_test = x_train_data.drop(columns=['Exited'])
-            y_test = x_train_data['Exited']
+            x_test = x_test_data.drop(columns=['Exited'])
+            y_test = x_test_data['Exited']
             
 
             logging.info("data tansfomation are started")

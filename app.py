@@ -24,8 +24,8 @@ def predict_data(user_data : Churn_validation):
     model = pipline(df)
     
     y_prob, y_pred = model.predict()
-    prob = float(y_prob[0])   # raw probability
-    pred = int(y_pred[0])     # 0 or 1
+    prob = y_prob.squeeze().item()
+    pred = int(y_pred.squeeze())
     
     # Convert to percentage
     prob_percent = round(prob * 100, 2)

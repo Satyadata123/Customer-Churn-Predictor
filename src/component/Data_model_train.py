@@ -10,7 +10,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 from dataclasses import dataclass
 import tensorflow
 from tensorflow import keras
-from tensorflow.keras import Sequential
+from tensorflow.keras import Sequential, callbacks
 from tensorflow.keras.layers import Dense, Dropout
 import keras_tuner as kt
 
@@ -38,9 +38,9 @@ class model_trainer:
 
 
             logging.info("model building completed now model training started")
-            stop_early = tensorflow.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+            stop_early = tensorflow.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3)
 
-            model.fit(x_train_transform, y_train, epochs = 500, validation_data = (x_test_transform, y_test))
+            model.fit(x_train_transform, y_train, epochs = 50, validation_data = (x_test_transform, y_test))
 
             logging.info("model training complited and now testing started")
             yprob = model.predict(x_test_transform)
